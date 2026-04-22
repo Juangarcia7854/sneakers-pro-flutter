@@ -1,0 +1,1179 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -192
+      ],
+      "id": "9f3cd5c1-5d3f-4ffb-8d54-5c6598412c0f",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 838250680,
+          "mode": "list",
+          "cachedResultName": "Usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=838250680"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "user_id": "={{ $workflow.id }}",
+            "nombre": "={{ $json.body.nombre }}",
+            "correo": "={{ $json.body.correo }}",
+            "password": "={{ $json.body.password }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "password",
+              "displayName": "password",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        48
+      ],
+      "id": "8f2fd544-41ec-4c2d-b7c8-612eb12ea635",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "929a678f-a3be-409b-b55a-e81a024ae428",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -192
+      ],
+      "id": "d5908821-b00a-4dea-bff4-81ed5d06568d",
+      "name": "Webhook-inventario",
+      "webhookId": "929a678f-a3be-409b-b55a-e81a024ae428"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "registrar-usuario",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        48
+      ],
+      "id": "a58190f0-205b-4c4b-8e1c-199a17a0fb43",
+      "name": "Webhook-Registro",
+      "webhookId": "f6d422f4-cc0b-497d-8833-6cfe5caeadf9"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "validar-login",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -144,
+        288
+      ],
+      "id": "302dd4e5-e967-4f51-a911-908c89c81e39",
+      "name": "Webhook-Login",
+      "webhookId": "9f5b3d87-fb9f-4575-8013-12d292b9bf63"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Usuario registrado correctamente\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        400,
+        48
+      ],
+      "id": "a98adee0-95dd-4c25-b56b-b968d721bb58",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 838250680,
+          "mode": "list",
+          "cachedResultName": "Usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=838250680"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "correo",
+              "lookupValue": "={{ $json.body.correo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        96,
+        288
+      ],
+      "id": "7f04e010-7ac9-45d6-81c9-236ccb447e63",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5c553939-a42d-42ca-99c7-b6682aad2474",
+              "leftValue": "={{ $json.password }}",
+              "rightValue": "={{ $('Webhook-Login').first().json.body.password }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        384,
+        288
+      ],
+      "id": "b38bde29-7151-4b86-a986-94f88ab7840a",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"login\": true,\n  \"message\": \"Bienvenido a Sneakers Pro\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        768,
+        160
+      ],
+      "id": "5c17dfdf-c364-4c38-8911-72bf27f657d0",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"login\": false,\n  \"message\": \"Correo o contraseña incorrectos\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        752,
+        352
+      ],
+      "id": "9b1af6e9-6635-42df-9359-fda18c9ee72e",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "crear-pedido",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        560
+      ],
+      "id": "6995d924-ae04-42ef-8098-b44e9a44e5c4",
+      "name": "crear-pedido",
+      "webhookId": "b72b2fd0-8a57-4c7f-9dca-0ad84fa36bae"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 962112001,
+          "mode": "list",
+          "cachedResultName": "Pedidos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=962112001"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_pedido": "={{ $execution.id }}",
+            "correo_usuario": "={{ $json.body.correo }}",
+            "articulos": "={{ $json.body.articulos }}",
+            "total": "={{ $json.body.total }}",
+            "fecha": "={{ $now }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id_pedido",
+              "displayName": "id_pedido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "correo_usuario",
+              "displayName": "correo_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "articulos",
+              "displayName": "articulos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "total",
+              "displayName": "total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        96,
+        560
+      ],
+      "id": "f9e33ea1-ac64-4180-9c59-1d63000d8ead",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"¡Pedido creado con éxito!\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        768,
+        560
+      ],
+      "id": "9371f5be-0adf-4a1a-9e19-1f380dd2378d",
+      "name": "Respond to Webhook3"
+    },
+    {
+      "parameters": {
+        "sendTo": "jsebastian61@hotmail.com",
+        "subject": "gracias por su compra",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f5; margin: 0; padding: 20px; }\n    .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }\n    .header { background-color: #111827; color: #ffffff; padding: 40px 20px; text-align: center; }\n    .header h1 { margin: 0; font-size: 32px; letter-spacing: 3px; font-weight: 900; }\n    .header p { margin: 10px 0 0; color: #9ca3af; font-size: 14px; letter-spacing: 1px; }\n    .content { padding: 40px 30px; color: #374151; }\n    .content h2 { color: #111827; margin-top: 0; font-size: 24px; }\n    .invoice-details { background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #111827; }\n    .table { width: 100%; border-collapse: collapse; margin-top: 20px; }\n    .table th { background-color: #e5e7eb; padding: 12px; text-align: left; font-weight: bold; color: #111827; border-radius: 4px; }\n    .table td { padding: 15px 12px; border-bottom: 1px solid #e5e7eb; }\n    .total-row { font-weight: 900; font-size: 20px; color: #111827; }\n    .footer { background-color: #f9fafb; text-align: center; padding: 30px 20px; font-size: 12px; color: #6b7280; border-top: 1px solid #e5e7eb; }\n    .badge { display: inline-block; background-color: #10b981; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-bottom: 15px;}\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"header\">\n      <h1>⚡ SNEAKERS PRO</h1>\n      <p>FACTURA ELECTRÓNICA DE COMPRA</p>\n    </div>\n    <div class=\"content\">\n      <div class=\"badge\">Pago Aprobado</div>\n      <h2>¡Gracias por tu compra!</h2>\n      <p>Tu pedido ha sido procesado con éxito a través de nuestro sistema automatizado. Aquí tienes el resumen de tu compra:</p>\n      \n      <div class=\"invoice-details\">\n        <strong>Orden de Pedido:</strong> #SP-2026<br>\n        <strong>Estado:</strong> Preparando para envío\n      </div>\n\n      <table class=\"table\">\n        <thead>\n          <tr>\n            <th>Producto(s)</th>\n            <th>Total</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr>\n            <td>{{ $('crear-pedido').item.json.body.articulos }}</td>\n            <td>$ {{ $('crear-pedido').item.json.body.total }}</td>\n          </tr>\n          <tr class=\"total-row\">\n            <td style=\"text-align: right; padding-right: 20px;\">Total Pagado:</td>\n            <td>$ {{ $('crear-pedido').item.json.body.total }}</td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n    <div class=\"footer\">\n      <p><strong>ifcodedv S.A.S.</strong><br>\n      Operaciones centralizadas en Turbaco, Bolívar.</p>\n      <p>Este es un comprobante generado automáticamente por la integración de Flutter y n8n.</p>\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        544,
+        560
+      ],
+      "id": "451ee3e2-ed1f-4f82-bc9e-5dc9a40a6621",
+      "name": "Send a message",
+      "webhookId": "934f43f4-66a0-4b4b-9d99-2f34442c5bdf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "uVGDiXeJGT9WfN6y",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('crear-pedido').first().json.body.id }}",
+            "tallas": "={{ $('crear-pedido').first().json.body.nuevoStock }}",
+            "row_number": 0
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "modelo",
+              "displayName": "modelo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "marca",
+              "displayName": "marca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio",
+              "displayName": "precio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tallas",
+              "displayName": "tallas",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "imagen_url",
+              "displayName": "imagen_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        320,
+        560
+      ],
+      "id": "20f37488-98a0-445e-a1f1-70f0a6c21e2d",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 838250680,
+          "mode": "list",
+          "cachedResultName": "Usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=838250680"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ $json.body.nombre }}",
+            "correo": "={{ $json.body.correo }}",
+            "password": "=",
+            "direccion": "={{ $json.body.direccion }}"
+          },
+          "matchingColumns": [
+            "correo"
+          ],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "password",
+              "displayName": "password",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "direccion",
+              "displayName": "direccion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        96,
+        832
+      ],
+      "id": "7d1e8b48-8454-4a43-a34b-c5b5d3826538",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        320,
+        832
+      ],
+      "id": "6345143d-7e95-446c-bb00-9d881323ae63",
+      "name": "Respond to Webhook4"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "actualizar-perfil",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        832
+      ],
+      "id": "bde503ea-dc0e-4f6c-be34-920e1759ad74",
+      "name": "Webhook-actualizar-perfil",
+      "webhookId": "b0eb75f4-48ce-4dbc-8d0f-90a2daea6756"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dcfa266c-10d2-4bd4-8150-a571510437f9",
+              "leftValue": "={{ $json.body.correo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        352,
+        1088
+      ],
+      "id": "a7f13181-c3a6-4439-a4f7-7b6a30e124a9",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"existe\": true\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        688,
+        1040
+      ],
+      "id": "f0379009-a41c-47ae-b446-c521077b683b",
+      "name": "Respond to Webhook5"
+    },
+    {
+      "parameters": {
+        "jsCode": "const codigoOTP = Math.floor(100000 + Math.random() * 900000).toString();\nreturn { codigo: codigoOTP };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        1248
+      ],
+      "id": "e8d41761-82d8-4783-bfd4-7e429202a3e5",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "from": "+15074167228",
+        "to": "=+57{{ $('Webhook-verificar-correo').first().json.body.telefono }}",
+        "message": "=Tu código de verificación para Sneakers Pro es: {{ $json.codigo }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        960,
+        1248
+      ],
+      "id": "6a9e6f81-b05f-4050-a865-f5d975ba16bb",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "aojtM5PwuXSzVLXL",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"existe\": false,\n  \"codigo\": \"{{ $node['Code in JavaScript'].json.codigo }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1216,
+        1248
+      ],
+      "id": "a11b9f72-6bee-4f12-a2b4-4c025385a0a6",
+      "name": "Respond to Webhook6"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 838250680,
+          "mode": "list",
+          "cachedResultName": "Usuarios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=838250680"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "correo",
+              "lookupValue": "={{ $json.body.correo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        128,
+        1088
+      ],
+      "id": "6ef7889c-3b07-41dd-bfa9-6cb898ba3851",
+      "name": "Get row(s) in sheet2",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "verificar-correo",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -160,
+        1088
+      ],
+      "id": "1f14b13c-57bc-4071-bf2a-1ce1d97f5a81",
+      "name": "Webhook-verificar-correo",
+      "webhookId": "fb765a2a-bf1b-4727-92f6-1e785f139a52"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8",
+          "mode": "list",
+          "cachedResultName": "SneakersPro_DB",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 962112001,
+          "mode": "list",
+          "cachedResultName": "Pedidos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19O5doU6UXYrwdPlHWgoV9FxaPI3TJqVI4NrTz2q90m8/edit#gid=962112001"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "correo_usuario",
+              "lookupValue": "={{ $json.body.correo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        1504
+      ],
+      "id": "34ece2a3-e872-4d8e-8aaa-ee10f63858e4",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7OaMYqBPPun8SKu5",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        160,
+        1520
+      ],
+      "id": "6e1c807a-da0d-4fcb-b1eb-74619ce7a76b",
+      "name": "Respond to Webhook7"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "obtener-historial",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -208,
+        1504
+      ],
+      "id": "bdfc16ba-a089-4d46-996e-87066857a6a5",
+      "name": "Webhook-obtener-historial",
+      "webhookId": "459b2e71-2dd8-4d2b-b7e1-c01b96f291bc"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook-inventario": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook-Registro": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook-Login": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "crear-pedido": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook3": {
+      "main": [
+        []
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook-actualizar-perfil": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send an SMS/MMS/WhatsApp message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook-verificar-correo": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook-obtener-historial": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "007c44de-e4fe-4fb6-8da4-3cc9fcb113c6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3dd9e47960978930f7aed6ccb50d0016144efe943e05cad5cc700d963da26f73"
+  },
+  "id": "HSrCRl3d9MwbBqZL",
+  "tags": []
+}
