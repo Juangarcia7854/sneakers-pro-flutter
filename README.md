@@ -1,5 +1,4 @@
-# 👟 Sneakers Pro - ifcodedv S.A.S.
-
+# 👟 Sneakers Pro 
 Aplicación e-commerce premium para la venta de zapatillas deportivas, desarrollada con Flutter y respaldada por una arquitectura serverless utilizando flujos de automatización en n8n y Google Sheets como base de datos.
 
 ## 🚀 Características Principales
